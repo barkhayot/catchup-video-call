@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/static/logo.png" type="image/png" />
+    <title>Video Call</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+
+
+    <!-- <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-top: 24px;
+            min-height: 90vh;
+        }
+        .dialWrapper {
+  width: 300px;
+  background-color: antiquewhite;
+  display: flex;
+  flex-direction: column;
+}
+
+.dialNumpadHWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.dialNumber {
+  display: flex;
+  width: 100px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.incomingWrapper {
+  width: 300px;
+  background-color: antiquewhite;
+  display: flex;
+  flex-direction: column;
+}
+
+.itemWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.actionButton {
+  display: flex;
+  width: 100px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.dialActionButton {
+  display: flex;
+  width: 80px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  font-size: larger;
+  cursor: pointer;
+}
+
+#errorMessage {
+  color: red;
+}
+
+    </style> -->
+
+    <style>
+        body{background-color:rgb((255, 255, 255), 255, 255)!important;
+	
+}
+#profile-wrapper{
+	text-align: center;
+}
+
+#profile-pic{
+	width:100px;
+	height: 100px;
+	border-radius: 50%;
+	margin-left: auto;
+  	margin-right: auto;
+}
+
+ul{
+	padding: 0;
+    list-style-type: none;
+}
+
+
+.social-links ul, li{
+	list-style-type:none;
+	display: inline-block;
+}
+
+.social{
+	width:20px;
+	height: 20px;
+}
+
+.navbar-brand{
+	position: relative;
+	left: 15%;
+	
+}
+.nav-link{
+    position: relative;
+    right: 5%;
+}
+
+.navbar-brand h3{
+	font-size: 25px;
+  	font-weight: 700;
+	letter-spacing: 0;
+}
+
+.navbar-nav{
+	position: relative;
+	left: 70%;
+}
+
+
+
+.footer{
+
+	position: fixed;
+	bottom: 5%;
+	width: 100%;
+	color: lightslategray;
+	text-align: center;
+	
+}
+#profile-pics{
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	margin-left: auto;
+  	margin-right: auto;
+}
+#profile-picsr{
+	width: 250px;
+	height: 250px;
+	border-radius: 50%;
+	margin-left: auto;
+  	margin-right: auto;
+}
+#profile-picsd{
+	width: 200px;
+	height: 200px;
+	border-radius: 20%;
+	margin-left: auto;
+ 	margin-right: auto;
+}
+.btn-circle.btn-xl {
+			width: 150px;
+			height: 150px;
+			padding: 13px 18px;
+			border-radius: 70px;
+			font-size: 25px;
+			text-align: center;
+		}
+        .video-wrapper {
+    position: relative;
+    float: none;
+    width: 50%;
+    margin: 1%;
+}
+.inline-block {
+   display: inline-block;
+}
+
+    </style>
+
+    <script>
+        let myName;
+    </script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(58, 162, 189);">
+            <a href="" class="navbar-brand"><img src="https://cdn-icons-png.flaticon.com/512/4340/4340530.png" width="50" alt="" style="display: inline; margin-right: 20px;"><h3 style="display: inline;">ChatchUp </h3></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+               
+                <li class="nav-item active ">
+                    <a class="nav-link" href="">Welcome</a>
+                </li>
+                
+                </ul>
+            </div>
+        </nav>
+        
+        <br>
+    
+    </header> 
+    
+    <div class="container">
+        
+        <div class="row text-center" style="margin-top: 20px">
+            <!-- to input username and login -->
+            <div id="userName" class="col">
+                <div class="card" style="padding: 3% 15% 0 15%; border:0ch" >
+                    <h4>Please enter your name that your partner will be able to find you by your name</h4>
+                    <br>
+                    <p></p>
+                    <input placeholder="What should we call you?" 
+                        style="text-align:center; height: 50px; font-size: xx-large;" class="form-control" type="text" name=""
+                        id="userNameInput">
+                    <div style="height: 5px;"></div>
+                    <br>
+                    <button onclick="login()" class="actionButton btn btn-lg" style="background-color: rgb(58, 162, 189); color:white">Login</button>
+                </div>
+            </div>
+
+            <!-- to display current login user information  -->
+            <div id="userInfo" class="col">
+                <div class="card" style="padding: 3% 15% 0 15%; border:0ch">
+                    <!-- <h1>Hello, <span id="nameHere"></span></h1> -->
+                    <h4>Hello, <span id="nameHere" style="color: rgb(185, 53, 53);"></span>. Please enter your <span style="color: rgb(185, 53, 53);"> Partner name</span> in order to call make a video call </h4>
+                    <br>
+                    <p></p>
+                </div>
+
+            </div>
+
+            <!-- to make a call with name -->
+            <div id="call">
+                <div class="dialWrapper card" style="padding: 5% 15% 0 15%; border:0ch">
+                    <input placeholder="Whom to call?" style="text-align:center; height: 50px; font-size: xx-large;" class="form-control"
+                        type="text" name="callName" id="callName">
+                    <div class="dialNumpadHWrapper">
+                        <div class="dialNumber">
+                        </div>
+                        <br>
+                        <div class="dialNumber">
+                            <button class="dialActionButton form-control  btn btn-lg btn-danger" onclick="call()">Call</button>
+                        </div>
+                        <div class="dialNumber">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- to show incommming call and accept -->
+            <div id="answer">
+                <div class="incomingWrapper">
+                    <div class="itemWrapper">
+                        <h2>Incomming Call</h2>
+                    </div>
+                    <div class="itemWrapper">
+                        <img id="profileImageA" style="padding: 30px; width: 140px; height: 140px;"
+                            src="https://thumbs.gfycat.com/LinearBogusBull-size_restricted.gif" alt="">
+                    </div>
+                    <div class="itemWrapper">
+                        <h2 style="line-height: 0px;"><span id="callerName"></span></h2>
+                    </div>
+                    <br>
+                    <br>
+                    <p></p>
+                    <div class="itemWrapper">
+                        <div class="row text-center">
+                            <div class="col">
+                                <button class="  btn btn-danger btn-circle btn-xl" style="display: inline ;" onclick="cancel()" >Cancel</button>
+                            </div>
+                            <div class="col">
+                                <button class="actionButton  btn btn-circle btn-success btn-xl" style="display: inline ;" onclick="answer()">Answer</button>
+                            </div>
+        
+                        </div>    
+                    </div>
+                </div>
+            </div>
+
+            <!-- to show outgoing call -->
+            <div id="calling">
+                <div class="incomingWrapper">
+                    <div class="itemWrapper">
+                        <h2>Calling</h2>
+                    </div>
+                    <div class="itemWrapper">
+                        <img id="profileImageCA" style="padding: 30px; width: 140px; height: 140px;"
+                            src="https://thumbs.gfycat.com/LinearBogusBull-size_restricted.gif" alt="">
+                    </div>
+                    <div class="itemWrapper">
+                        <h3 style="line-height: 0px;"><span id="otherUserNameCA"></span></h3>
+                        <br>
+                        <p></p>
+                        <div class="col">
+                            <button class="  btn btn-danger btn-lg" style="display: inline ;" onclick="cancel()" >Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- to show call in progress call -->
+            <div id="inCall">
+                <div class="incomingWrapper">
+                    <div class="itemWrapper">
+                        <h3 style="display: inline;">On Call With</h3>
+                        <h2 style="line-height: 0px; display: inline;"><span id="otherUserNameC"></span></h2>
+                        <br>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+
+            <!-- to show local and remote video -->
+            <div id="videos" >
+                <div class="inline-block" >
+                    <video  id="localVideo" style="width: 100%" autoplay muted playsinline></video>
+                </div>
+                <div class="inline-block" >
+                    
+                    <video  style="width: 100%" id="remoteVideo" autoplay playsinline></video>
+                </div>
+            </div>
+            <!-- <div style="flex-grow: 1;">
+            </div> -->
+        </div>
+
+
+
+
+
+    </div>
+    <div style="flex-grow: 1;">
+    </div>
+    <!-- <div>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            <a href="https://www.youtube.com/watch?v=N7lbtbmqLvM">
+                Video Call in Django with WebRTC and Django Channels (Video Guide)
+            </a>
+            <a href="https://www.bloggernepal.com/2021/10/video-call-in-django-with-webrtc-and-channels.html">
+                Video Call in Django with WebRTC and Channels (Article)
+            </a>
+            <a href="https://www.bloggernepal.com/2021/05/setup-stun-and-turn-server-on-ubuntu.html">
+                Setup STUN and TURN server on Ubuntu
+            </a>
+            <a href="https://github.com/InfoDevkota/WebRTC-Django-Django-Channels-Video-Call">
+                Github Repository
+            </a>
+        </div>
+    </div> -->
+
+
+    <script src="/static/call.js"></script>
+    <script>
+        document.getElementById("call").style.display = "none";
+        document.getElementById("userInfo").style.display = "none";
+        document.getElementById("answer").style.display = "none";
+        document.getElementById("inCall").style.display = "none";
+        document.getElementById("calling").style.display = "none";
+        document.getElementById("videos").style.display = "none";
+
+    </script>
+    <script>
+        function login() {
+            let userName = document.getElementById("userNameInput").value;
+            myName = userName;
+            document.getElementById("userName").style.display = "none";
+            document.getElementById("call").style.display = "block";
+
+            document.getElementById("nameHere").innerHTML = userName;
+            document.getElementById("userInfo").style.display = "block";
+
+            connectSocket();
+        }
+    </script>
+    <script>
+        'use strict';
+
+const baseURL = "/"
+
+let localVideo = document.querySelector('#localVideo');
+let remoteVideo = document.querySelector('#remoteVideo');
+
+let otherUser;
+let remoteRTCMessage;
+
+let iceCandidatesFromCaller = [];
+let peerConnection;
+let remoteStream;
+let localStream;
+
+let callInProgress = false;
+
+//event from html
+function call() {
+    let userToCall = document.getElementById("callName").value;
+    otherUser = userToCall;
+
+    if (userToCall === ""){
+        alert("Enter the Partner ID name");
+    }
+    else{
+    beReady()
+        .then(bool => {
+            processCall(userToCall)
+        })
+    }
+}
+
+// event from html
+function cancel(){
+    window.location.reload();
+}
+
+//event from html
+function answer() {
+    //do the event firing
+
+    beReady()
+        .then(bool => {
+            processAccept();
+        })
+
+    document.getElementById("answer").style.display = "none";
+}
+
+let pcConfig = {
+    "iceServers":
+        [
+            { "url": "stun:stun.jap.bloggernepal.com:5349" },
+            {
+                "url": "turn:turn.jap.bloggernepal.com:5349",
+                "username": "guest",
+                "credential": "somepassword"
+            },
+            {"url": "stun:stun.l.google.com:19302"}
+        ]
+};
+
+// Set up audio and video regardless of what devices are present.
+let sdpConstraints = {
+    offerToReceiveAudio: true,
+    offerToReceiveVideo: true
+};
+
+/////////////////////////////////////////////
+
+let socket;
+let callSocket;
+function connectSocket() {
+    let ws_scheme = window.location.protocol == "https:" ? "wss://" : "ws://";
+    console.log(ws_scheme);
+
+    callSocket = new WebSocket(
+        ws_scheme
+        + window.location.host
+        + '/ws/call/'
+    );
+
+    callSocket.onopen = event =>{
+    //let's send myName to the socket
+        callSocket.send(JSON.stringify({
+            type: 'login',
+            data: {
+                name: myName
+            }
+        }));
+    }
+
+    callSocket.onmessage = (e) =>{
+        let response = JSON.parse(e.data);
+
+        // console.log(response);
+
+        let type = response.type;
+
+        if(type == 'connection') {
+            console.log(response.data.message)
+        }
+
+        if(type == 'call_received') {
+            // console.log(response);
+            onNewCall(response.data)
+        }
+
+        if(type == 'call_answered') {
+            onCallAnswered(response.data);
+        }
+
+        if(type == 'ICEcandidate') {
+            onICECandidate(response.data);
+        }
+    }
+
+    const onNewCall = (data) =>{
+        //when other called you
+        //show answer button
+
+        otherUser = data.caller;
+        remoteRTCMessage = data.rtcMessage
+
+        // document.getElementById("profileImageA").src = baseURL + callerProfile.image;
+        document.getElementById("callerName").innerHTML = otherUser;
+        document.getElementById("call").style.display = "none";
+        document.getElementById("answer").style.display = "block";
+    }
+
+    const onCallAnswered = (data) =>{
+        //when other accept our call
+        remoteRTCMessage = data.rtcMessage
+        peerConnection.setRemoteDescription(new RTCSessionDescription(remoteRTCMessage));
+
+        document.getElementById("calling").style.display = "none";
+
+        console.log("Call Started. They Answered");
+        // console.log(pc);
+
+        callProgress()
+    }
+
+    const onICECandidate = (data) =>{
+        // console.log(data);
+        console.log("GOT ICE candidate");
+
+        let message = data.rtcMessage
+
+        let candidate = new RTCIceCandidate({
+            sdpMLineIndex: message.label,
+            candidate: message.candidate
+        });
+
+        if (peerConnection) {
+            console.log("ICE candidate Added");
+            peerConnection.addIceCandidate(candidate);
+        } else {
+            console.log("ICE candidate Pushed");
+            iceCandidatesFromCaller.push(candidate);
+        }
+
+    }
+
+}
+
+/**
+ * 
+ * @param {Object} data 
+ * @param {number} data.name - the name of the user to call
+ * @param {Object} data.rtcMessage - the rtc create offer object
+ */
+function sendCall(data) {
+    //to send a call
+    console.log("Send Call");
+
+    // socket.emit("call", data);
+    callSocket.send(JSON.stringify({
+        type: 'call',
+        data
+    }));
+
+    document.getElementById("call").style.display = "none";
+    // document.getElementById("profileImageCA").src = baseURL + otherUserProfile.image;
+    document.getElementById("otherUserNameCA").innerHTML = otherUser;
+    document.getElementById("calling").style.display = "block";
+}
+
+
+
+/**
+ * 
+ * @param {Object} data 
+ * @param {number} data.caller - the caller name
+ * @param {Object} data.rtcMessage - answer rtc sessionDescription object
+ */
+function answerCall(data) {
+    //to answer a call
+    // socket.emit("answerCall", data);
+    callSocket.send(JSON.stringify({
+        type: 'answer_call',
+        data
+    }));
+    callProgress();
+}
+
+/**
+ * 
+ * @param {Object} data 
+ * @param {number} data.user - the other user //either callee or caller 
+ * @param {Object} data.rtcMessage - iceCandidate data 
+ */
+function sendICEcandidate(data) {
+    //send only if we have caller, else no need to
+    console.log("Send ICE candidate");
+    // socket.emit("ICEcandidate", data)
+    callSocket.send(JSON.stringify({
+        type: 'ICEcandidate',
+        data
+    }));
+
+}
+
+function beReady() {
+    return navigator.mediaDevices.getUserMedia({
+        audio: true,
+        video: true
+    })
+        .then(stream => {
+            localStream = stream;
+            localVideo.srcObject = stream;
+
+            return createConnectionAndAddStream()
+        })
+        .catch(function (e) {
+            alert('getUserMedia() error: ' + e.name);
+        });
+}
+
+function createConnectionAndAddStream() {
+    createPeerConnection();
+    peerConnection.addStream(localStream);
+    return true;
+}
+
+function processCall(userName) {
+    peerConnection.createOffer((sessionDescription) => {
+        peerConnection.setLocalDescription(sessionDescription);
+        sendCall({
+            name: userName,
+            rtcMessage: sessionDescription
+        })
+    }, (error) => {
+        console.log("Error");
+    });
+}
+
+function processAccept() {
+
+    peerConnection.setRemoteDescription(new RTCSessionDescription(remoteRTCMessage));
+    peerConnection.createAnswer((sessionDescription) => {
+        peerConnection.setLocalDescription(sessionDescription);
+
+        if (iceCandidatesFromCaller.length > 0) {
+            //I am having issues with call not being processed in real world (internet, not local)
+            //so I will push iceCandidates I received after the call arrived, push it and, once we accept
+            //add it as ice candidate
+            //if the offer rtc message contains all thes ICE candidates we can ingore this.
+            for (let i = 0; i < iceCandidatesFromCaller.length; i++) {
+                //
+                let candidate = iceCandidatesFromCaller[i];
+                console.log("ICE candidate Added From queue");
+                try {
+                    peerConnection.addIceCandidate(candidate).then(done => {
+                        console.log(done);
+                    }).catch(error => {
+                        console.log(error);
+                    })
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+            iceCandidatesFromCaller = [];
+            console.log("ICE candidate queue cleared");
+        } else {
+            console.log("NO Ice candidate in queue");
+        }
+
+        answerCall({
+            caller: otherUser,
+            rtcMessage: sessionDescription
+        })
+
+    }, (error) => {
+        console.log("Error");
+    })
+}
+
+/////////////////////////////////////////////////////////
+
+function createPeerConnection() {
+    try {
+        peerConnection = new RTCPeerConnection(pcConfig);
+        // peerConnection = new RTCPeerConnection();
+        peerConnection.onicecandidate = handleIceCandidate;
+        peerConnection.onaddstream = handleRemoteStreamAdded;
+        peerConnection.onremovestream = handleRemoteStreamRemoved;
+        console.log('Created RTCPeerConnnection');
+        return;
+    } catch (e) {
+        console.log('Failed to create PeerConnection, exception: ' + e.message);
+        alert('Cannot create RTCPeerConnection object.');
+        return;
+    }
+}
+
+function handleIceCandidate(event) {
+    // console.log('icecandidate event: ', event);
+    if (event.candidate) {
+        console.log("Local ICE candidate");
+        // console.log(event.candidate.candidate);
+
+        sendICEcandidate({
+            user: otherUser,
+            rtcMessage: {
+                label: event.candidate.sdpMLineIndex,
+                id: event.candidate.sdpMid,
+                candidate: event.candidate.candidate
+            }
+        })
+
+    } else {
+        console.log('End of candidates.');
+    }
+}
+
+function handleRemoteStreamAdded(event) {
+    console.log('Remote stream added.');
+    remoteStream = event.stream;
+    remoteVideo.srcObject = remoteStream;
+}
+
+function handleRemoteStreamRemoved(event) {
+    console.log('Remote stream removed. Event: ', event);
+    remoteVideo.srcObject = null;
+    localVideo.srcObject = null;
+}
+
+window.onbeforeunload = function () {
+    if (callInProgress) {
+        stop();
+    }
+};
+
+
+function stop() {
+    localStream.getTracks().forEach(track => track.stop());
+    callInProgress = false;
+    peerConnection.close();
+    peerConnection = null;
+    document.getElementById("call").style.display = "block";
+    document.getElementById("answer").style.display = "none";
+    document.getElementById("inCall").style.display = "none";
+    document.getElementById("calling").style.display = "none";
+    document.getElementById("endVideoButton").style.display = "none"
+    otherUser = null;
+}
+
+function callProgress() {
+
+    document.getElementById("videos").style.display = "block";
+    document.getElementById("otherUserNameC").innerHTML = otherUser;
+    document.getElementById("inCall").style.display = "block";
+    document.getElementById("userInfo").style.display = "none";
+
+    callInProgress = true;
+}
+
+    </script>
+</body>
+
+</html>
