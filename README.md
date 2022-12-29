@@ -34,8 +34,8 @@ localhost:8000
 ```
 ### Screenshots
 <p float="left">
-  <img src="https://github.com/barkhayot/telegram-clone/blob/main/texed/screen/screen1.png" alt="Markdown Monster icon" style="width:100%" />
-  <img src="https://github.com/barkhayot/telegram-clone/blob/main/texed/screen/screen2.png" alt="Markdown Monster icon" style="width:100%" />
+  <img src="https://github.com/barkhayot/catchup-video-call/blob/main/screen1.png" alt="Markdown Monster icon" style="width:100%" />
+  <img src="https://github.com/barkhayot/catchup-video-call/blob/main/screen2.jpeg" alt="Markdown Monster icon" style="width:100%" />
   </p>
 
 More to learn visit:-
